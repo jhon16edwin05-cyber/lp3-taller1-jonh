@@ -15,7 +15,7 @@ from app import create_app
 app = create_app(os.getenv("FLASK_CONFIG", "development"))
 
 if __name__ == "__main__":
-    # TODO: ejecutar la aplicación en modo debug=True mientras
+    # ejecutar la aplicación en modo debug=True mientras
     # desarrollas (recarga automática + mensajes de error detallados).
     app.run(debug=True)
     pass
