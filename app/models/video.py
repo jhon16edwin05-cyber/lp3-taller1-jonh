@@ -24,14 +24,15 @@ class VideoModel(db.Model):
     # Definición de columnas
     id = db.Column(db.Integer, primary_key=True)
 
-    # TODO 1: Definir la columna 'name': texto de máximo 100 caracteres
+    # 1: Definir la columna 'name': texto de máximo 100 caracteres
     #         que no puede ser nulo.
-    # Pista: name = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
 
-    # TODO 2: Definir la columna 'views': entero que no puede ser nulo.
-    # Pista: views = db.Column(db.Integer, nullable=False)
+    # 2: Definir la columna 'views': entero que no puede ser nulo.
+    views = db.Column(db.Integer, nullable=False)
 
-    # TODO 3: Definir la columna 'likes': entero que no puede ser nulo.
+    # 3: Definir la columna 'likes': entero que no puede ser nulo.
+    likes = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         """Representación en texto del objeto (útil para depurar)."""
