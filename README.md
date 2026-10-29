@@ -5,15 +5,14 @@
 
 - ver [badgen](https://badgen.net/) o [shields](https://shields.io/) para otros tipos de _badges_
 
-## Autor
+## Autor 
+#JONH EDWIN ORDOÑEZ MUÑOZ
 
-- [@estudiante](https://www.github.com/estudiante)
+- [@jedwin](https://www.github.com/jhon16edwin05)
 
 ## Descripción del Proyecto
+#API REST desarrollada en Python utilizando Flask, Flask-RESTful y Flask-SQLAlchemy. Permite la gestión completa de videos (crear, consultar, actualizar de forma parcial, listar y eliminar) con persistencia de datos en una base de datos SQLite.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut quam dolor. Quisque elementum est sed massa gravida convallis. Donec volutpat turpis eget lectus feugiat congue. Morbi rutrum auctor eleifend. Etiam iaculis libero tellus, vel aliquet erat tempor sed. Duis efficitur quam vel sapien luctus, sed semper lacus mollis. Suspendisse non nunc eleifend, aliquet elit eget, condimentum augue.
-
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus vel nibh fringilla, porta elit vel, consequat libero. Nulla et libero ac nulla ultricies sollicitudin. Sed viverra non nulla id convallis. Morbi vel varius lacus, in maximus nunc. Praesent sed semper diam. Pellentesque vehicula nulla augue, ut porta dolor consequat at.
 
 ## Instalación
 
@@ -25,4 +24,31 @@ git clone https://github.com/clubdecomputacion/lp3-taller1.git
 ```
 
 2. Revisar la [`GUIA.md`](docs/GUIA.md)
+
+3. Crea y activa tu entorno virtual:
+
+   Bash
+   python3 -m venv venv
+   source venv/bin/activate
+
+4. INstalacion de dependencias
+
+pip install -r requirements.txt
+
+5. Ejecuta el proyecto
+
+   python3 run.py
+
+6. Uso de la API
+
+GET	/api/videos	Obtiene la lista de todos los videos registrados. la opcion que se le agrego de mejora
+
+ GET 	/api/videos/<id>	Consulta un video específico por su ID.
+ PUT 	/api/videos/<id>	Crea un nuevo video asignándole un ID en la URL.
+ PATCH	/api/videos/<id>	Actualiza de forma parcial los campos de un video.
+ DELETE	/api/videos/<id>	Elimina un video existente.
+
+7. En el Paso 12 se implementó la siguiente mejora:
+
+Añadir un endpoint para obtener todos los videos (GET /api/videos): Permite listar en formato JSON todos los registros almacenados en la base de datos de manera conjunta.
 

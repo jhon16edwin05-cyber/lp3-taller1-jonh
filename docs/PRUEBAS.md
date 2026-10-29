@@ -1,8 +1,8 @@
 # Pruebas de la API de Videos
 
-Las pruebas se ejecutaron en la aplicación Flask usando el cliente de pruebas (`app.test_client()`) en modo `testing` para validar los endpoints de `Video`.
+Las pruebas se ejecutaron en la aplicación Flask usando el cliente de pruebas
 
-## 1. Crear un video (PUT) — caso exitoso
+## 1. Crear un video (PUT)
 
 - **Solicitud:** `PUT /api/videos/1`
 - **Cuerpo:**
@@ -13,9 +13,8 @@ Las pruebas se ejecutaron en la aplicación Flask usando el cliente de pruebas (
 - **Código obtenido:** 201
 - **Respuesta:**
   ```json
-  {"id": 1, "name": "Tutorial de Flask", "views": 0, "likes": 0}
   ```
-- **Evidencia:** Se verificó mediante la ejecución del cliente de pruebas de Flask, donde la creación del recurso devolvió `201 Created`.
+`201 Created`.
 
 ## 2. Consultar un video (GET) — caso exitoso
 
@@ -24,9 +23,8 @@ Las pruebas se ejecutaron en la aplicación Flask usando el cliente de pruebas (
 - **Código obtenido:** 200
 - **Respuesta:**
   ```json
-  {"id": 1, "name": "Tutorial de Flask", "views": 0, "likes": 0}
   ```
-- **Evidencia:** El endpoint de lectura devolvió el video creado con status `200 OK`.
+`200 OK`.
 
 ## 3. Actualizar un video (PATCH) — caso exitoso
 
@@ -41,7 +39,7 @@ Las pruebas se ejecutaron en la aplicación Flask usando el cliente de pruebas (
   ```json
   {"id": 1, "name": "Tutorial de Flask", "views": 2500, "likes": 200}
   ```
-- **Evidencia:** La actualización parcial modificó solo los campos enviados y respondió con `200 OK`.
+ `200 OK`.
 
 ## 4. Eliminar un video (DELETE) — caso exitoso
 
@@ -52,7 +50,7 @@ Las pruebas se ejecutaron en la aplicación Flask usando el cliente de pruebas (
   ```json
   ""
   ```
-- **Evidencia:** La eliminación del recurso respondió con `204 No Content` y quedó removido correctamente.
+
 
 ## 5. Error 400 — falta un campo obligatorio en PUT
 
@@ -67,7 +65,7 @@ Las pruebas se ejecutaron en la aplicación Flask usando el cliente de pruebas (
   ```json
   {"message": {"likes": "El número de likes del video es requerido"}}
   ```
-- **Evidencia:** `reqparse` rechazó la solicitud porque faltaba el campo `likes`, devolviendo `400 Bad Request`.
+-`400 Bad Request`.
 
 ## 6. Error 404 — video no existe
 
@@ -76,9 +74,8 @@ Las pruebas se ejecutaron en la aplicación Flask usando el cliente de pruebas (
 - **Código obtenido:** 404
 - **Respuesta:**
   ```json
-  {"message": "No se encontró un video con el ID 999"}
   ```
-- **Evidencia:** Cuando se consultó un ID inexistente, la función `abort_if_video_doesnt_exist()` respondió con `404 Not Found`.
+404 Not Found`.
 
 ## 7. Error 409 — conflicto al crear un video duplicado
 
@@ -91,11 +88,9 @@ Las pruebas se ejecutaron en la aplicación Flask usando el cliente de pruebas (
 - **Código obtenido:** 409
 - **Respuesta:**
   ```json
-  {"message": "Ya existe un video con el ID 2"}
   ```
-- **Evidencia:** Se intentó crear un video con un ID que ya existía en la base de datos y el recurso respondió con `409 Conflict`.
+  `409 Conflict`.
 
-## Resumen
 
 Se validaron todos los métodos principales de la API:
 
@@ -104,4 +99,4 @@ Se validaron todos los métodos principales de la API:
 - `PATCH`: éxito
 - `DELETE`: éxito
 
-La API responde conforme a la especificación del taller y mantiene el comportamiento esperado para las solicitudes válidas e inválidas.
+

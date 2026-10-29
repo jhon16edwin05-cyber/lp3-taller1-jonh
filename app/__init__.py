@@ -5,7 +5,7 @@ from flask_restful import Api
 
 from app.config import config
 from app.models import db
-from app.resources.video import Video
+from app.resources.video import Video, VideoList
 
 
 def create_app(config_name):
@@ -16,7 +16,9 @@ def create_app(config_name):
     db.init_app(app)
 
     api = Api(app)
-    api.add_resource(Video, "/api/videos/<int:video_id>")
+    # implementacion de ruta para consultar todos los videos
+    api.add_resource(Video, '/api/videos/<int:video_id>')
+    api.add_resource(VideoList, '/api/videos')
 
     with app.app_context():
         db.create_all()

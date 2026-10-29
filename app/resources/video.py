@@ -94,3 +94,9 @@ class Video(Resource):
         db.session.commit()
         return "", 204
 
+class VideoList(Resource):
+    @marshal_with(resource_fields)
+    def get(self):
+        # Consulta todos los videos de la base de datos
+        videos = VideoModel.query.all()
+        return videos, 200

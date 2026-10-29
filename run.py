@@ -18,5 +18,3 @@ if __name__ == "__main__":
     # ejecutar la aplicación en modo debug=True mientras
     # desarrollas (recarga automática + mensajes de error detallados).
     app.run(debug=True)
-    pass
-
