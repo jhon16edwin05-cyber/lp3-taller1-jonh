@@ -35,16 +35,10 @@ video_update_args.add_argument("likes", type=int, help="Número de likes del vid
 
 
 def abort_if_video_doesnt_exist(video_id):
-    """Busca un video por su ID y lo retorna; si no existe, aborta con 404.
-
-    TODO 1: Consultar la base de datos con
-            VideoModel.query.filter_by(id=video_id).first()
-            (retorna el video o None si no existe)
-    TODO 2: Si el resultado es None, llamar a
-            abort(404, message=f"No se encontró un video con el ID {video_id}")
-    TODO 3: Si existe, retornar el video
-    """
-    pass  # <-- reemplaza esta línea por tu implementación
+    result = VideoModel.query.filter_by(id=video_id).first()
+    if result is None:
+        abort(404, message=f"No se encontró un video con el ID {video_id}")
+    return result
 
 
 class Video(Resource):
@@ -59,60 +53,44 @@ class Video(Resource):
 
     @marshal_with(resource_fields)
     def get(self, video_id):
-        """Obtiene un video por su ID.
-
-        TODO 1: Obtener el video con abort_if_video_doesnt_exist(video_id)
-                (si no existe, esa función ya responde con 404)
-        TODO 2: Retornar el video. @marshal_with se encarga de
-                convertirlo a JSON usando resource_fields.
-        """
-        pass  # <-- reemplaza esta línea por tu implementación
+        return abort_if_video_doesnt_exist(video_id)
 
     @marshal_with(resource_fields)
     def put(self, video_id):
-        """Crea un nuevo video con el ID indicado en la URL.
+        args = video_put_args.parse_args()
 
-        TODO 1: Leer los datos enviados en el cuerpo de la solicitud:
-                args = video_put_args.parse_args()
-        TODO 2: Verificar que NO exista ya un video con ese ID, con
-                VideoModel.query.filter_by(id=video_id).first()
-                Si existe, llamar a
-                abort(409, message=f"Ya existe un video con el ID {video_id}")
-        TODO 3: Crear el objeto VideoModel con id=video_id y los valores
-                de args["name"], args["views"] y args["likes"]
-        TODO 4: Guardarlo en la base de datos:
-                db.session.add(video)
-                db.session.commit()
-        TODO 5: Retornar el video creado junto con el código 201:
-                return video, 201
-        """
-        pass  # <-- reemplaza esta línea por tu implementación
+        if VideoModel.query.filter_by(id=video_id).first() is not None:
+            abort(409, message=f"Ya existe un video con el ID {video_id}")
+
+        video = VideoModel(
+            id=video_id,
+            name=args["name"],
+            views=args["views"],
+            likes=args["likes"],
+        )
+        db.session.add(video)
+        db.session.commit()
+        return video, 201
 
     @marshal_with(resource_fields)
     def patch(self, video_id):
-        """Actualiza los campos enviados de un video existente.
+        args = video_update_args.parse_args()
+        result = abort_if_video_doesnt_exist(video_id)
 
-        TODO 1: Leer los datos enviados: args = video_update_args.parse_args()
-        TODO 2: Obtener el video con abort_if_video_doesnt_exist(video_id)
-        TODO 3: Para cada campo (name, views, likes): si el campo llegó en
-                la solicitud, actualizar el atributo del video.
-                OJO: compara con "is not None" y NO uses "if args['views']:",
-                porque 0 es un valor válido (un video puede tener 0 vistas)
-                y se interpretaría como "no enviado".
-        TODO 4: Guardar los cambios con db.session.commit()
-        TODO 5: Retornar el video actualizado
-        """
-        pass  # <-- reemplaza esta línea por tu implementación
+        if args["name"] is not None:
+            result.name = args["name"]
+        if args["views"] is not None:
+            result.views = args["views"]
+        if args["likes"] is not None:
+            result.likes = args["likes"]
 
+        db.session.commit()
+        return result
+
+    @marshal_with(resource_fields)
     def delete(self, video_id):
-        """Elimina un video existente.
-
-        TODO 1: Obtener el video con abort_if_video_doesnt_exist(video_id)
-        TODO 2: Eliminarlo de la base de datos:
-                db.session.delete(video)
-                db.session.commit()
-        TODO 3: Retornar una respuesta vacía con el código 204 (sin contenido):
-                return "", 204
-        """
-        pass  # <-- reemplaza esta línea por tu implementación
+        result = abort_if_video_doesnt_exist(video_id)
+        db.session.delete(result)
+        db.session.commit()
+        return "", 204
 
